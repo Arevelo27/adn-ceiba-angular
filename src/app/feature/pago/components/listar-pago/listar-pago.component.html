@@ -1,0 +1,144 @@
+
+<div class="container">
+  <div class="row">
+    <!-- <div class="bd-example" *ngIf='!verPagosPendientes'> -->
+      <div class="bd-example">
+        <br>
+        <form [formGroup]="pagoForm" (ngSubmit)="consultarEntidadPacientePorCedula()" class="row g-4"> 
+          <div class="col-auto">
+            <input validar type="text" class="form-control" class="form-control" id="txtIdentificacion" formControlName="identificacion" placeholder="Identificación">          </div>
+          <div class="col-auto">
+            <button id="btnConsultar" type="submit" class="btn btn-primary mb-3" [disabled]="pagoForm.invalid">Consultar Examenes a Pagar</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Horizontal Steppers -->
+<div class="container">
+  <div id="stepper1" class="bs-stepper">
+    <div class="bs-stepper-header">
+      <div class="step" data-target="#test-l-1" >
+        <button class="step-trigger" >
+          <span class="bs-stepper-circle">1</span>
+          <span class="bs-stepper-label">Informacion</span>
+        </button>
+      </div>
+      <div class="line"></div>
+      <div class="step" data-target="#test-l-2" >
+        <button class="step-trigger" >
+          <span class="bs-stepper-circle">2</span>
+          <span class="bs-stepper-label">Pagar Examenes</span>
+        </button>
+      </div>
+      <div class="line"></div>
+      <div class="step" data-target="#test-l-3" >
+        <button class="step-trigger" >
+          <span class="bs-stepper-circle">3</span>
+          <span class="bs-stepper-label">Consultorio</span>
+        </button>
+      </div>
+    </div>
+    <div class="bs-stepper-content">
+      <form (ngSubmit)="onSubmit()">
+        <div id="test-l-1" class="content">
+          <div class="form-group">
+            
+            <br>
+            <h4>Informacion de la Entidad</h4> 
+            <!-- {{entidadPacienteItem.paciente.nombres }} -->
+            <br>  
+             <table aria-describedby="Informacion de Examenes a Pagar " class="table table-responsive table-hover">
+              <thead class="table-primary">
+                <tr>
+                  <th scope="col">Id</th>
+                  <!-- <th scope="col">paciente</th> -->
+                  <th scope="col">entidad</th>
+                  <th scope="col">Valor</th>
+                  <th scope="col">fecha de Vinculación</th>
+                  <th scope="col">Fecha de Pago</th>
+                  <th scope="col">activo</th>
+                  <!-- <th scope="col">Acción</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let entidadPac of listaLocalEntidadPaciente">
+                  <th scope="row">{{entidadPac.idEntidadPaciente}}</th>
+                  <!-- <td>{{entidadPac.paciente}}</td> -->
+                  <td>{{entidadPac.entidad}}</td>
+                  <td>{{entidadPac.valor}}</td>
+                  <td>{{entidadPac.fechaVinculacion}}</td>
+                  <td>{{entidadPac.fechaPago}}</td>
+                  <td>{{entidadPac.activo}}</td>
+                  <!-- <td><button id="btnPagar{{entidadPac.idPago}}"  [disabled]="entidadPac.valorPagado != '0.00'"  type="button" class="btn btn-primary mb-3 btnPagar"  (click)='pagar(pago)' routerLink='/pago' type="submit">Pagar</button></td> -->
+                </tr>
+              </tbody>
+            </table>
+            <br>
+
+          </div>
+          <button [disabled]="!isLinear || pagoForm.invalid || entidadPacienteItem.activo == 'NO'" (click)="next()" class="btn btn-primary" style="float: right">Siguiente</button>
+        </div>
+        <div id="test-l-2" class="content">
+          <div class="form-group">
+            
+            <div class="container">
+              <div class="row">
+                  <div id="pagos" *ngIf='verPagosPendientes'>
+                      <br>
+                      <h4>Informacion de Examenes a Pagar</h4>
+                      <br>  
+                       <table aria-describedby="Informacion de Examenes a Pagar" class="table table-responsive table-hover">
+                        <thead class="table-primary">
+                          <tr>
+                            <th scope="col">Id Pago</th>
+                            <th scope="col">Identificación</th>
+                            <th scope="col">Codigo Factura</th>
+                            <th scope="col">Tipo Examen</th>
+                            <th scope="col">Fecha de Vencimiento</th>
+                            <th scope="col">Valor a Pagar</th>        
+                            <th scope="col">Fecha de Pago</th>
+                            <th scope="col">Valor Pagado</th>
+                            <th scope="col">Acción</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let pago of listaLocalPagos">
+                            <th scope="row">{{pago.idPago}}</th>
+                            <td>{{pago.documentoIdentificacionDeudor}}</td>
+                            <td>{{pago.codigoFactura}}</td>
+                            <td>{{pago.tipoExamen}}</td>
+                            <td>{{pago.fechaVencimientoPago}}</td>
+                            <td>{{pago.valorAdeudado}}</td>
+                            <td>{{pago.fechaPago}}</td>
+                            <td>{{pago.valorPagado}}</td>
+                            <td><button id="btnPagar{{pago.idPago}}"  [disabled]="pago.valorPagado != '0.00'"  type="button" class="btn btn-primary mb-3 btnPagar"  (click)='pagar(pago)' routerLink='/pago' type="submit">Pagar</button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <br>
+                      <h6>Nota:</h6>
+                      <ol>
+                        <li>Los pagos de los examenes realizados despues del 15 de cada mes, se cobra un incremento del 10%</li>
+                        <li>Los pagos de los examenes realizados despues de las 05:00 p.m, quedan para el proximo día aplicado</li> </ol>
+                      <br>  
+                      <!-- <button  id="btnAtras"  type="button" class="btn btn-primary mb-3" (click)='limpiarFormulario()'>Atras</button> -->
+                  </div>
+              </div> 
+            </div>
+            
+          </div>
+          <button (click)="previous()" class="btn btn-primary">Volver</button>
+          <button (click)="next()" class="btn btn-primary" style="float: right" [disabled]="!verValidarPagos">Siguiente</button>
+        </div>
+        <div id="test-l-3" class="content text-center">
+          <button type="submit" class="btn btn-primary mt-5">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- /.Horizontal Steppers -->
+
+
