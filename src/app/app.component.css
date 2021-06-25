@@ -6,3 +6,563 @@
 .disableDiv{
     pointer-events:none;
 }
+
+body{
+	font-family: 'Roboto', sans-serif!important;
+}
+html, body {
+
+/* height: 100%; */
+
+padding: 0;
+
+margin: 0;
+
+}
+/*------ CLEAN ----*/
+.container, nav {
+	position: relative;
+}
+a {
+	text-decoration: none;
+	color:#00aeef;
+}
+li {
+	list-style: none;
+}
+
+ul, h1, h2, h3 {
+	margin: 0;
+	padding: 0;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+button {
+	border: none;
+    background: none;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+}
+
+/*select { -webkit-appearance: none;
+         -moz-appearance: none;
+          appearance: none;
+        }*/
+/*------- ATT -------*/
+.hidden {
+	display: none;
+}
+h1 {
+	font-size: 25px;
+}
+
+h2 {
+	font-size: 20px;
+}
+p {
+	font-size: 14px;
+}
+
+.border-right {
+	border-right: 1px #ffffff solid;
+}
+
+.clearfix {
+	float: none;
+	margin: 0;
+	padding: 0;
+}
+
+.arrow_box_left, .arrow_box_right {
+	position: relative;
+}
+.arrow_box_left:after, .arrow_box_left:before {
+	right: 100%;
+}
+.arrow_box_right:after, .arrow_box_right:before {
+	left: 100%;
+}
+.arrow_box_left:after, .arrow_box_left:before, .arrow_box_right:after, .arrow_box_right:before  {
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-radius: 5px;
+}
+
+.arrow_box_left:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-right-color: #00aeef;
+	border-width: 7px;
+    margin: -7px 2px 0 -1px;
+}
+
+.arrow_box_right:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-left-color: #00aeef;
+	border-width: 7px;
+    margin: -7px 7px 0 3px;
+}
+
+.shadow {
+	-webkit-box-shadow: 1px 1px 2px 0px rgba(128,128,128,1);
+	-moz-box-shadow: 1px 1px 2px 0px rgba(128,128,128,1);
+	box-shadow: 1px 1px 2px 0px rgba(128,128,128,1);
+}
+
+hr {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #ccc;
+}
+
+.datepicker-days td.today {
+	background:#00aeef;
+	color: #ffffff;
+}
+
+.datepicker-days .disabled {
+	color: #ccc;
+}
+/* ----- RESPONSIVE ATT --------*/
+/*----- BUTTONS ------*/
+
+.button {
+	background:#00aeef;
+	padding: 6px 30px;
+	font-size: 14px;
+	color: #ffffff;
+	display: inline-block;
+	border-radius: 2px;
+	margin: 10px 10px 10px 0;
+}
+.button:hover, .menuweeks ul li:hover, .timewrap li:hover {
+	background: #005DA8;
+	color: #ffffff;
+}
+
+.timewrap li:hover a {
+	color: #ffffff;
+}
+
+.buttoncancel {
+	background:#e30613;
+	padding: 6px 30px;
+	font-size: 14px;
+	color: #ffffff;
+	display: inline-block;
+	border-radius: 2px;
+	margin: 10px 10px 10px 0;
+}
+.buttoncancel:hover {
+	background: #c00d0d;
+}
+
+/*------ Titulo Sesiones ------*/
+
+.barratitulo {
+    background: #00aeef;
+    padding: 21px 0;
+    margin: 30px 30px 30px 0;
+    border-bottom-right-radius: 36px;
+    color: #ffffff;
+}
+/*----- Banner Publicitario ------*/
+
+.imagenref img{
+	width: 100%;
+	margin: 30px 0 0 0;
+}
+
+/*-------- General Form Styling ------*/
+
+.formsg label span {
+	color: #e30613;
+}
+
+input[type='checkbox'] {
+    -webkit-appearance:none!important;
+    width:20px!important;
+    height:20px!important;
+    border:1px solid darkgray!important;
+    border-radius:50%!important;
+    outline:none!important;
+    box-shadow:0 0 5px 0px gray inset!important;
+}
+input[type='checkbox']:hover {
+    box-shadow:0 0 5px 0px orange inset!important;
+}
+input[type='checkbox']:before {
+    content:''!important;
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    /*margin: 20% auto;    */
+    border-radius:50%!important;    
+}
+input[type='checkbox']:checked:before {
+    background:#00aeef!important;
+}
+
+.formsg input[type=text],
+.formsg input[type=search],
+.formsg input[type=radio],
+.formsg input[type=tel],
+.formsg input[type=time],
+.formsg input[type=url],
+.formsg input[type=week],
+.formsg input[type=password],
+.formsg input[type=color],
+.formsg input[type=date],
+.formsg input[type=datetime],
+.formsg input[type=datetime-local],
+.formsg input[type=email],
+.formsg input[type=month],
+.formsg input[type=number],
+.formsg select,
+.formsg textarea {
+	padding: 10px;
+	margin: 0 0 10px 0;
+	border: none;
+	border-radius: 2px;
+	background: #ffffff;
+	width: 100%!important;
+}
+
+input[type=text]:disabled,
+input[type=search]:disabled,
+input[type=radio]:disabled,
+input[type=tel]:disabled,
+input[type=time]:disabled,
+input[type=url]:disabled,
+input[type=week]:disabled,
+input[type=password]:disabled,
+input[type=color]:disabled,
+input[type=date]:disabled,
+input[type=datetime]:disabled,
+input[type=datetime-local]:disabled,
+input[type=email]:disabled,
+input[type=month]:disabled,
+input[type=number]:disabled,
+select:disabled,
+textarea:disabled {
+	background: #ccc;
+}
+
+.formsg select {
+	padding: 10px;
+	border: none;
+	margin: 0 0 10px 0;
+	border: none;
+	border-radius: 2px;
+	height: 41px;
+}
+
+.formsg select option{
+	padding: 10px 5px;
+	font-size: 16px;
+}
+
+.formback input[type=text],
+.formback input[type=search],
+.formback input[type=radio],
+.formback input[type=tel],
+.formback input[type=time],
+.formback input[type=url],
+.formback input[type=week],
+.formback input[type=password],
+.formback input[type=color],
+.formback input[type=date],
+.formback input[type=datetime],
+.formback input[type=datetime-local],
+.formback input[type=email],
+.formback input[type=month],
+.formback input[type=number],
+.formback select,
+.formback textarea,
+.formback select {
+	background: #f1f2f2;
+	width: 100%!important;
+}
+
+textarea {
+	min-height: 100px;
+}
+
+.calendar:before {
+	content: "";
+    width: 30px;
+    height: 30px;
+    background-size: 30px 30px;
+    background-image: url('../assets/img/userdata/icon-calendar.png');
+    left: 21px;
+    top: 31px;
+    display: inline-block;
+    position: absolute;
+}
+
+.calendarfix {
+	padding-left: 39px!important;
+}
+.errorglobal, .errorlittle {
+	color: #e30613;
+}
+input.erinput {
+	border:2px #e30613 solid!important;
+}
+
+.valid, .validlittle {
+	color: #117919;
+}
+.errorlittle, .validlittle {
+ 	padding: 5px;
+    border-radius: 2px;
+    margin: 5px 0;
+    position: relative;
+    top: -16px;
+    display: none;
+}
+.errorglobal, .valid {
+	border-radius: 2px;
+	margin: 10px 0;
+	display: none;
+}
+.errorglobal p, .valid p, .errorlittle p, .validlittle p{
+	margin: 0;
+	padding: 0;
+}
+.showpassword {
+	position: absolute;
+    top: 30px;
+    right: 23px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+.terminoscontainer {
+	border: 1px #ccc solid!important;
+    border-radius: 10px!important;
+    padding: 10px 10px 0 10px!important;
+    max-height: 221px!important;
+    height: 221px!important;
+    overflow: scroll!important;
+    overflow-x: hidden!important;
+	background: #ffffff!important;
+}
+
+/*------- USER INFO--------*/
+.infouser {
+	margin-bottom: 22px;
+}
+.infouser h2 {
+	color:#00aeef;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.imguser {
+	vertical-align: middle;
+}
+
+.infouser .boldtitles {
+	font-weight: bold;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    font-size: 15px;
+}
+
+.infouser .cc {
+	font-size: 18px;
+	font-weight: 300;
+}
+
+.infouser .lines {
+	border-top: 1px #dedadb solid;
+	border-bottom: 1px #dedadb solid;
+	padding: 10px 0;
+}
+
+.infouser .linesdash {
+	border-top: 1px #dedadb dashed;
+	border-bottom: 1px #dedadb solid;
+}
+
+.infouser .lineright {
+	border-right: 1px #dedadb dashed;
+	padding-right: 16px;
+}
+
+.infouser .linedashbot {
+	border-bottom: 1px #dedadb dashed;
+}
+
+.infouser .padfix {
+	padding: 8px 0;
+    margin: 8px 0;
+}
+
+.infouser .button {
+	margin: 4px 0;
+}
+
+.usertitle {
+	padding: 0 0 20px 10px;
+	position: relative;
+}
+
+.toggleplus {
+	position: absolute;
+    right: 10px;
+    top: 11px;
+    display: block;
+}
+
+.linesdash .col-md-4:nth-child(2){
+	margin-left: -14px;
+}
+
+/*------- USER Responsive -------*/
+@media screen and (min-width: 800px) {
+	.toggleplus {
+	    display: block;
+	}
+}
+@media screen and (max-width: 800px) {
+	.infouser .lineright, .infouser .linedashbot {
+		border: none;
+	}
+	.infouser .padfix {
+	    padding: 0;
+	    margin: 7px 0;
+	}
+	.infouser .linesdash {
+	    margin-bottom:10px;
+	}
+
+	.infouser #hide .col-md-3:first-child, .infouser #hide .col-md-9 {
+		padding: 0;
+	}
+
+	.infouser .lines, .infouser .linesdash {
+		padding: 5px 10px;
+	}
+	.infouser .lines > .col
+	.infouser .lines {
+		border-top: 1px #dedadb solid;
+		border-bottom: 1px #dedadb solid;
+		padding: 10px;
+	}
+
+	#hide {
+		display: none;
+	}
+
+	.toggleplus {
+	    display: block;
+	}
+
+	.infouser {
+		/* margin-bottom: 22px; */
+		background: #ffffff;
+		position: fixed;
+		width: 100%;
+		bottom: -22px;
+		z-index: 10;
+	}
+	.usertitle {
+	    padding: 5px 10px 5px 5px;
+	    position: relative;
+	}
+	.infouser h2 {
+	    font-size: 15px;
+	}
+	textarea {
+		min-height: 200px;
+	}
+
+	.linesdash .col-md-4:nth-child(2){
+		margin-left: auto;
+	}
+}
+
+/*------- USER INFO--------*/
+
+.navcitas {
+	padding: 0 20px;
+	background: #00aeef ;
+}
+
+.navcitas ul {
+  display: flex;
+}
+
+.navcitas ul li {
+	display: inline-block;
+	color: #ffffff;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 10px 20px;
+}
+
+.navcitas .active:hover, .navcitas ul li:hover {
+	background: #006084;
+}
+
+.navcitas .active:hover> a, .navcitas ul li:hover> a {
+	color: #ffffff;
+}
+
+.navcitas .active {
+	padding: 10px 20px;
+	background:#f1f2f2 ;
+}
+
+.navcitas .active a{
+	color: #00aeef;
+}
+
+.navcitas ul li a {
+	color: #ffffff;
+	text-decoration: none;
+}
+
+.infopestanas {
+	background: #f1f2f2;
+	padding: 30px;
+	border-radius: 5px;
+}
+
+/*---- USER INFO RESPONSIVE ----*/
+
+@media screen and (max-width: 700px) {
+	.navcitas {
+		padding: 0;
+	}
+	.navcitas ul li {
+	    font-size: 13px;
+	    padding: 10px 10px;
+	}
+	.infopestanas {
+		padding: 15px;
+	}
+}
