@@ -33,6 +33,9 @@
       "@pago/*": [
         "src/app/feature/pago/*"
       ],
+      "@paciente/*": [
+        "src/app/feature/paciente/*"
+      ],
       "@shared/*": [
         "src/app/shared/*"
       ]

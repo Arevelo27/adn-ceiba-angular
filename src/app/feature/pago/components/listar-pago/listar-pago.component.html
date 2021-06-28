@@ -9,23 +9,13 @@
         class="row g-4"
       >
         <div class="col-auto">
-          <input
-            validar
-            type="text"
-            class="form-control"
-            class="form-control"
-            id="txtIdentificacion"
-            formControlName="identificacion"
-            placeholder="Identificación"
+          <input validar type="text" class="form-control"
+            class="form-control" id="txtIdentificacion"
+            formControlName="identificacion" placeholder="Identificación"
           />
         </div>
         <div class="col-auto">
-          <button
-            id="btnConsultar"
-            type="submit"
-            class="btn btn-primary mb-3"
-            [disabled]="pagoForm.invalid"
-          >
+          <button id="btnConsultar" type="submit" class="btn btn-primary mb-3" [disabled]="pagoForm.invalid" >
             Consultar Examenes a Pagar
           </button>
         </div>
@@ -137,7 +127,7 @@
                 <tbody>
                   <tr *ngFor="let entidadPac of listaLocalEntidadPaciente">
                     <th scope="row">{{ entidadPac.idEntidadPaciente }}</th>
-                    <td>{{ entidadPac.entidad }}</td>
+                    <td>{{ entidadPac.nombreEntidad }}</td>
                     <td>{{ entidadPac.valor }}</td>
                     <td>{{ entidadPac.fechaVinculacion }}</td>
                     <td>{{ entidadPac.fechaPago }}</td>

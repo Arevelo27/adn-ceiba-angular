@@ -1,0 +1,66 @@
+<div class = "modal-header">
+  <h1 class = "modal-title">Registrar Paciente</h1>
+</div>
+<div class = "modal-body form-center">
+  <form [formGroup]="pacienteForm" (ngSubmit)="crear()" class="form">
+    <div class="row">
+      <div class="col-sm-3">
+        <label>Nombre:</label>
+      </div>
+      <div class="col-sm-9">
+        <input validar type="text" id="nombrePaciente" name="Nombre" placeholder="Nombre paciente"
+          class="form-control" formControlName="nombres">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <label for="correoPaciente">Correo:</label>
+      </div>
+      <div class="col-sm-9">
+        <input validar type="email" id="correoPaciente" name="Correo" aria-describedby="correoHelp" placeholder="Correo paciente"
+          class="form-control" formControlName="correo">
+        <small id="correoHelp" class="form-text text-muted">Nunca compartiremos su correo electrónico con nadie más.</small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <label>Apellido:</label>
+      </div>
+      <div class="col-sm-9">
+        <input validar type="text" id="apellidoPaciente" name="Apellido" placeholder="Apellido paciente"
+          class="form-control" formControlName="apellidos">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <label>Identificacion:</label>
+      </div>
+      <div class="col-sm-9">
+        <input validar type="text" id="identificacionPaciente" name="Identificacion" placeholder="Identificacion paciente"
+          class="form-control" formControlName="identificacion">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <label>Direccion:</label>
+      </div>
+      <div class="col-sm-9">
+        <input validar type="text" id="direccionPaciente" name="Direccion" placeholder="Direccion paciente"
+          class="form-control" formControlName="direccion">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <label>Telefono:</label>
+      </div>
+      <div class="col-sm-9">
+        <input validar type="text" id="telefonoPaciente" name="Telefono" placeholder="Telefono paciente"
+          class="form-control" formControlName="telefono">
+      </div>
+    </div>
+
+    <br>
+    <button id="btnCrearPaciente"  [disabled]="pacienteForm.invalid"  
+      type="button" class="btn btn-primary w-100" type="submit">Crear</button>
+  </form>
+</div>

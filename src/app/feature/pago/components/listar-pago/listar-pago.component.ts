@@ -86,10 +86,9 @@ export class ListarPagoComponent implements OnInit {
       .consultarIdentificacion(this.pagoForm.get("identificacion").value)
       .subscribe(
         (respuesta) => {
-          this.listaLocalPaciente = respuesta;
-          if (this.listaLocalPaciente.length > 0) {
+          if (respuesta != null) {
             this.verPaciente = true;
-            this.pacienteItem = this.listaLocalPaciente[0];
+            this.pacienteItem = respuesta;
             this.consultarEntidadPacientePorCedula(this.pacienteItem);
           } else {
             this.emiteMensaje(
@@ -144,7 +143,7 @@ export class ListarPagoComponent implements OnInit {
   pagarEntidadPaciente(entidadPaciente: EntidadPaciente) {
     entidadPaciente.valor = 80000.0;
     entidadPaciente.activo = 1;
-    entidadPaciente.fechaPago = this.obtenerFechaActual(0) ;
+    entidadPaciente.fechaPago = this.obtenerFechaActual(0);
     this.entidadPacienteService
       .actualizar(entidadPaciente, entidadPaciente.paciente.identificacion)
       .subscribe(
@@ -176,14 +175,6 @@ export class ListarPagoComponent implements OnInit {
           this.listaLocalPagos = respuesta;
           if (this.listaLocalPagos.length > 0) {
             this.verPagosPendientes = true;
-
-            // for (let i = 0; i < this.listaLocalPagos.length; i++) {
-            //   this.pagoItem = this.listaLocalPagos[i];
-            //   if (this.pagoItem.valorPagado == '0.00') {
-            //     this.verValidarPagos = true;
-            //     // break;
-            //   }
-            // }
           } else {
             this.emiteMensaje(this.tituloAdvertencia, this.pagoNoEncontrado);
             this.limpiarFormulario();
@@ -221,24 +212,28 @@ export class ListarPagoComponent implements OnInit {
     this.pagoForm.get("identificacion").setValue("");
   }
 
-  obtenerFechaActual(dia: number) {
+  obtenerFechaActual(dia?: number) {
     const date = new Date();
     const day = "" + date.getDate();
     const month = "" + (date.getMonth() + dia);
     const year = "" + date.getFullYear();
-    
+
     // " 05:00:00"
     if (dia != 1) {
       const hours = "" + date.getHours();
       const minutes = "" + date.getMinutes();
       const seconds = "" + date.getSeconds();
-      
-      return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")} ${hours.padStart(2,"0")}:${minutes.padStart(2,"0")}:${seconds.padStart(2,"0")}`;
 
-    }else{
+      return `${year}-${month.padStart(2, "0")}-${day.padStart(
+        2,
+        "0"
+      )} ${hours.padStart(2, "0")}:${minutes.padStart(
+        2,
+        "0"
+      )}:${seconds.padStart(2, "0")}`;
+    } else {
       return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
-    }    
-
+    }
   }
 
   emiteMensaje(titulo: string, descripcion: string) {

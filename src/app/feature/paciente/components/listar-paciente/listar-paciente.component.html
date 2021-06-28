@@ -1,0 +1,44 @@
+<br />
+
+<div id="pacientes" *ngIf="!verPaciente">
+  <br />
+  <h2><p>Informacion de los Pacientes</p></h2>
+  <br />
+  <table
+    aria-describedby="Informacion de Pacientes"
+    class="table table-responsive table-hover"
+  >
+    <thead class="table-primary">
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">nombres</th>
+        <th scope="col">apellidos</th>
+        <th scope="col">identificacion</th>
+        <th scope="col">direccion</th>
+        <th scope="col">telefono</th>
+        <th scope="col">email</th>
+        <th scope="col">Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listaPacientes | async">
+        <th scope="row">{{ item.idPaciente }}</th>
+        <td>{{item.nombres }}</td>
+        <td>{{item.apellidos }}</td>
+        <td>{{item.identificacion }}</td>
+        <td>{{item.direccion }}</td>
+        <td>{{item.telefono }}</td>
+        <td>{{item.email }}</td>
+        <td>
+          <button id="btnEditarPaciente{{item.idPaciente}}"  type="button" class="btn btn-primary mb-3 btnEditarPaciente"  
+          (click)='abrirDialogo(item)' type="submit" color="primary">Editar</button>
+
+          <button id="btnEliminarPaciente{{item.idPaciente}}"  type="button" class="btn btn-primary mb-3 btnEliminarPaciente"  
+          (click)='eliminarPaciente(item)' type="submit">Eliminar</button>
+        
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+</div>

@@ -16,7 +16,7 @@ export class Pago {
     valorAdeudado: string,
     valorPagado: string,
     fechaVencimientoPago: string,
-    fechaPago: string
+    fechaPago?: string
   ) {
     this.idPago = idPago;
     this.documentoIdentificacionDeudor = documentoIdentificacionDeudor;

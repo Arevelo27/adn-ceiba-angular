@@ -1,11 +1,10 @@
-import { Entidad } from "./entidad";
 import { Paciente } from "./paciente";
 
 export class EntidadPaciente {
   idEntidadPaciente: number;
   paciente: Paciente;
   idEntidad: number;
-  entidad: Entidad;
+  nombreEntidad: string;
   valor: number;
   fechaVinculacion: string;
   fechaPago: string;
