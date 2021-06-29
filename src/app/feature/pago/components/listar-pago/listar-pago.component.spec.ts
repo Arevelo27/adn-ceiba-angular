@@ -18,7 +18,7 @@ describe('ListarPagoComponent', () => {
   new Pago('3', '1111758458', 'FV-1984', '350000.00', '0.00', '2020-02-28', '')];
   const IDENTIFICACION_TEST = '1111758458';
   const IDENTIFICACION_TEST_INEXISTENTE = '32323232';
-  const FECHA_ACTUAL = '2021-03-02';
+  const FECHA_ACTUAL = '2021-06-28';
   const pagoTest = new Pago('3', '1111758458', 'FV-1984', '350000.00', '0.00', '2020-02-28', '');
   const TITULO_NOTIFICACION_EXITOSA = '¡Éxito!';
   const DESCRIPCION_NOTIFICACION_EXITOSA = '¡Pago realizado con Exito!';
@@ -118,7 +118,7 @@ describe('ListarPagoComponent', () => {
     let fechaRespuesta = '';
 
     // Act
-    fechaRespuesta = component.obtenerFechaActual();
+    fechaRespuesta = component.obtenerFechaActual(1);
 
     // Assert
     expect(fechaRespuesta).toEqual(FECHA_ACTUAL);

@@ -1,13 +1,19 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { Paciente } from "@pago/shared/model/paciente";
-import { PacienteService } from "@pago/shared/service/paciente.service";
+import { Paciente } from "@shared/copmponents/notificacion/model/paciente";
+import { PacienteService } from "@shared/copmponents/notificacion/service/paciente.service";
 import { Notificacion } from "@shared/copmponents/notificacion/model/notificacion";
 import { NotificacionService } from "@shared/copmponents/notificacion/service/notificacion.service";
 
 const LONGITUD_MINIMA_PERMITIDA_TEXTO = 3;
 const LONGITUD_MAXIMA_PERMITIDA_TEXTO = 20;
 const VALIDATORS_PATTERN_REGEX = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
+const VALUE_NOMBRES = "nombres";
+const VALUE_APELLIDOS = "apellidos";
+const VALUE_IDENTIFICACION = "identificacion";
+const VALUE_DIRECCION = "direccion";
+const VALUE_TELEFONO = "telefono";
+const VALUE_EMAIL = "correo";
 
 @Component({
   selector: "app-crear-paciente",
@@ -17,7 +23,7 @@ const VALIDATORS_PATTERN_REGEX = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
 export class CrearPacienteComponent implements OnInit {
   pacienteForm: FormGroup;
   tituloExito = "¡Éxito!";
-  pagoExitoso = "Paciente grabado con Exito!";
+  pacienteExitoso = "Paciente grabado con Exito!";
   tituloAdvertencia = "¡Advertencia!";
   pacienteExiste = "Ya Existe el paciente, con ese número de identicación!";
   notificacion: Notificacion;
@@ -35,17 +41,17 @@ export class CrearPacienteComponent implements OnInit {
   }
 
   crear() {
-    let paciente = new Paciente();
-    paciente.nombres = this.pacienteForm.value["nombres"];
-    paciente.apellidos = this.pacienteForm.value["apellidos"];
-    paciente.identificacion = this.pacienteForm.value["identificacion"];
-    paciente.direccion = this.pacienteForm.value["direccion"];
-    paciente.telefono = this.pacienteForm.value["telefono"];
-    paciente.email = this.pacienteForm.value["correo"];
+    const paciente = new Paciente();
+    paciente.nombres = this.pacienteForm.value[VALUE_NOMBRES];
+    paciente.apellidos = this.pacienteForm.value[VALUE_APELLIDOS];
+    paciente.identificacion = this.pacienteForm.value[VALUE_IDENTIFICACION];
+    paciente.direccion = this.pacienteForm.value[VALUE_DIRECCION];
+    paciente.telefono = this.pacienteForm.value[VALUE_TELEFONO];
+    paciente.email = this.pacienteForm.value[VALUE_EMAIL];
 
     this.pacienteServices.guardar(paciente).subscribe(
       () => {
-        this.emiteMensaje(this.tituloExito, this.pagoExitoso);
+        this.emiteMensaje(this.tituloExito, this.pacienteExitoso);
         setTimeout(() => {
           this.limpiarControles();
         }, 2000);

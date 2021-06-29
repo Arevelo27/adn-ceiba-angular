@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
 
-import { Paciente } from "@pago/shared/model/paciente";
-import { PacienteService } from "@pago/shared/service/paciente.service";
+import { Paciente } from "@shared/copmponents/notificacion/model/paciente";
+import { PacienteService } from "@shared/copmponents/notificacion/service/paciente.service";
 import { NotificacionService } from "@shared/copmponents/notificacion/service/notificacion.service";
 import { Notificacion } from "@shared/copmponents/notificacion/model/notificacion";
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
@@ -45,7 +45,7 @@ export class ListarPacienteComponent implements OnInit {
     activeModal.componentInstance.data = paciente;
 
     activeModal.result.then(
-      (result) => {        
+      (result) => {
         console.log(`Result modal: ${result.idPaciente}`);
         this.closeResult = `Closed with: ${result}`;
         this.listarPacientes();

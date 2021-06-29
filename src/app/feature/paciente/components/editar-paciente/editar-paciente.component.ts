@@ -1,14 +1,20 @@
 import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
-import { Paciente } from "@pago/shared/model/paciente";
-import { PacienteService } from "@pago/shared/service/paciente.service";
+import { Paciente } from "@shared/copmponents/notificacion/model/paciente";
+import { PacienteService } from "@shared/copmponents/notificacion/service/paciente.service";
 import { Notificacion } from "@shared/copmponents/notificacion/model/notificacion";
 import { NotificacionService } from "@shared/copmponents/notificacion/service/notificacion.service";
 
 const LONGITUD_MINIMA_PERMITIDA_TEXTO = 3;
 const LONGITUD_MAXIMA_PERMITIDA_TEXTO = 20;
 const VALIDATORS_PATTERN_REGEX = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
+const VALUE_NOMBRES = "nombres";
+const VALUE_APELLIDOS = "apellidos";
+const VALUE_IDENTIFICACION = "identificacion";
+const VALUE_DIRECCION = "direccion";
+const VALUE_TELEFONO = "telefono";
+const VALUE_EMAIL = "correo";
 
 @Component({
   selector: "app-editar-paciente",
@@ -40,30 +46,31 @@ export class EditarPacienteComponent implements OnInit {
     this.initForm();
   }
   crear() {
-    
-    let paciente = new Paciente();
-    paciente.nombres = this.pacienteEditForm.value["nombres"];
-    paciente.apellidos = this.pacienteEditForm.value["apellidos"];
-    paciente.identificacion = this.pacienteEditForm.value["identificacion"];
-    paciente.direccion = this.pacienteEditForm.value["direccion"];
-    paciente.telefono = this.pacienteEditForm.value["telefono"];
-    paciente.email = this.pacienteEditForm.value["correo"];
+    const paciente = new Paciente();
+    paciente.nombres = this.pacienteEditForm.value[VALUE_NOMBRES];
+    paciente.apellidos = this.pacienteEditForm.value[VALUE_APELLIDOS];
+    paciente.identificacion = this.pacienteEditForm.value[VALUE_IDENTIFICACION];
+    paciente.direccion = this.pacienteEditForm.value[VALUE_DIRECCION];
+    paciente.telefono = this.pacienteEditForm.value[VALUE_TELEFONO];
+    paciente.email = this.pacienteEditForm.value[VALUE_EMAIL];
 
-    this.pacienteServices.actualizar(paciente, this.paciente.identificacion).subscribe(
-      () => {
-        this.emiteMensaje(this.tituloExito, this.paacienteExitoso);
-        
-        setTimeout(() => {        
-          this.passEntry.emit(this.paciente);
-          this.activeModal.close(this.paciente);
-        }, 1500);
-      },
-      (err) => {
-        this.messageError = err.error.mensaje;
-        this.emiteMensaje(this.tituloError, this.messageError);
-        console.log(err);
-      }
-    );
+    this.pacienteServices
+      .actualizar(paciente, this.paciente.identificacion)
+      .subscribe(
+        () => {
+          this.emiteMensaje(this.tituloExito, this.paacienteExitoso);
+
+          setTimeout(() => {
+            this.passEntry.emit(this.paciente);
+            this.activeModal.close(this.paciente);
+          }, 1500);
+        },
+        (err) => {
+          this.messageError = err.error.mensaje;
+          this.emiteMensaje(this.tituloError, this.messageError);
+          console.log(err);
+        }
+      );
   }
 
   initForm() {

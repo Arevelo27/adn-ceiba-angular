@@ -1,4 +1,4 @@
-import { Paciente } from "./paciente";
+import { Paciente } from "@shared/copmponents/notificacion/model/paciente";
 
 export class EntidadPaciente {
   idEntidadPaciente: number;

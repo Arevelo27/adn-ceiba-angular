@@ -2,11 +2,11 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Notificacion } from "@shared/copmponents/notificacion/model/notificacion";
 import { NotificacionService } from "@shared/copmponents/notificacion/service/notificacion.service";
+import { Paciente } from "@shared/copmponents/notificacion/model/paciente";
+import { PacienteService } from "@shared/copmponents/notificacion/service/paciente.service";
 import { PagoService } from "../../shared/service/pago.service";
-import { PacienteService } from "../../shared/service/paciente.service";
 import { EntidadPacienteService } from "../../shared/service/entidad-paciente.service";
 import { Pago } from "../../shared/model/pago";
-import { Paciente } from "../../shared/model/paciente";
 import { EntidadPaciente } from "@pago/shared/model/entidadPaciente";
 import Stepper from "bs-stepper";
 
