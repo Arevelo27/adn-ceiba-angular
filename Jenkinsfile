@@ -41,6 +41,13 @@ pipeline {
             }
         }
 
+        stage('NPM Update') {
+            steps{
+              echo "------------>Testing<------------"
+              sh 'npm install -g n n stable'
+           }
+        }
+
         stage('Test') {
            steps{
               echo "------------>Testing<------------"
