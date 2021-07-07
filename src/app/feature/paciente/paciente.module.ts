@@ -6,6 +6,7 @@ import { CrearPacienteComponent } from './components/crear-paciente/crear-pacien
 import { EditarPacienteComponent } from './components/editar-paciente/editar-paciente.component';
 import { ListarPacienteComponent } from './components/listar-paciente/listar-paciente.component';
 import { SharedModule } from '@shared/shared.module';
+import { PacienteService } from './shared/service/paciente.service';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,6 @@ import { SharedModule } from '@shared/shared.module';
     PacienteRoutingModule,
     SharedModule
   ],
-  providers: [],
+  providers: [PacienteService],
 })
 export class PacienteModule { }

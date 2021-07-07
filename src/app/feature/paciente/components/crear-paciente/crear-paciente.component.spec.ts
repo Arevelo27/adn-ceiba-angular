@@ -5,9 +5,9 @@ import { HttpClientModule } from "@angular/common/http";
 import { RouterTestingModule } from "@angular/router/testing";
 import { HttpService } from "@core/services/http.service";
 import { Notificacion } from "@shared/copmponents/notificacion/model/notificacion";
-import { PacienteService } from "@shared/copmponents/notificacion/service/paciente.service";
-
 import { CrearPacienteComponent } from "./crear-paciente.component";
+import { PacienteService } from "@paciente/shared/service/paciente.service";
+import { PacienteConsultasService } from "@shared/copmponents/notificacion/service/paciente-consultas.service";
 
 describe("CrearPacienteComponent", () => {
   let component: CrearPacienteComponent;
@@ -27,7 +27,7 @@ describe("CrearPacienteComponent", () => {
     await TestBed.configureTestingModule({
       declarations: [CrearPacienteComponent],
       imports: [CommonModule, HttpClientModule, RouterTestingModule],
-      providers: [HttpService],
+      providers: [HttpService, PacienteService, PacienteConsultasService],
     }).compileComponents();
   });
 
@@ -51,9 +51,7 @@ describe("CrearPacienteComponent", () => {
     expect(component.pacienteForm.valid).toBeFalsy();
     component.pacienteForm.controls.nombres.setValue(NOMBRES_TEST);
     component.pacienteForm.controls.apellidos.setValue(APELLIDOS_TEST);
-    component.pacienteForm.controls.identificacion.setValue(
-      IDENTIFICACION_TEST
-    );
+    component.pacienteForm.controls.identificacion.setValue(IDENTIFICACION_TEST);
     component.pacienteForm.controls.direccion.setValue(DIRECCION_TEST);
     component.pacienteForm.controls.telefono.setValue(TELEFONO_TEST);
     component.pacienteForm.controls.correo.setValue(EMAIL_TEST);

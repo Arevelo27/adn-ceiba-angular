@@ -3,7 +3,8 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Notificacion } from "@shared/copmponents/notificacion/model/notificacion";
 import { NotificacionService } from "@shared/copmponents/notificacion/service/notificacion.service";
 import { Paciente } from "@shared/copmponents/notificacion/model/paciente";
-import { PacienteService } from "@shared/copmponents/notificacion/service/paciente.service";
+import { PacienteService } from "@paciente/shared/service/paciente.service";
+import { PacienteConsultasService } from "@shared/copmponents/notificacion/service/paciente-consultas.service";
 import { PagoService } from "../../shared/service/pago.service";
 import { EntidadPacienteService } from "../../shared/service/entidad-paciente.service";
 import { Pago } from "../../shared/model/pago";
@@ -16,8 +17,8 @@ import Stepper from "bs-stepper";
 })
 export class ListarPagoComponent implements OnInit {
   private stepper: Stepper;
-  public isLinear: boolean = true;
-  public isActivo: boolean = true;
+  public isLinear = true;
+  public isActivo = true;
   public pagoForm: FormGroup;
   public pagoItem: Pago;
   public pacienteItem: Paciente;
@@ -46,6 +47,7 @@ export class ListarPagoComponent implements OnInit {
   constructor(
     protected pagoService: PagoService,
     protected pacienteService: PacienteService,
+    protected pacienteConsultasService: PacienteConsultasService,
     protected entidadPacienteService: EntidadPacienteService,
     private notificacionService: NotificacionService
   ) {}
@@ -82,10 +84,10 @@ export class ListarPagoComponent implements OnInit {
   }
 
   consultarPacientePorCedula() {
-    this.pacienteService
+    this.pacienteConsultasService
       .consultarIdentificacion(this.pagoForm.get("identificacion").value)
-      .subscribe(
-        (respuesta) => {
+      .subscribe({
+        next: (respuesta) => {
           if (respuesta != null) {
             this.verPaciente = true;
             this.pacienteItem = respuesta;
@@ -98,25 +100,32 @@ export class ListarPagoComponent implements OnInit {
             this.limpiarFormularioEntidadPaciente();
           }
         },
-        (err) => {
+        error: (err) => {
           this.emiteMensaje(this.tituloError, this.descripcionError);
           console.log(err);
           this.limpiarFormularioEntidadPaciente();
-        }
-      );
+        },
+      });
   }
 
   consultarEntidadPacientePorCedula(paciente: Paciente) {
     this.entidadPacienteService
       .consultarIdentificacion(paciente.identificacion)
-      .subscribe(
-        (respuesta) => {
+      .subscribe({
+        next: (respuesta) => {
           this.listaLocalEntidadPaciente = respuesta;
+        },
+        error: (err) => {
+          this.emiteMensaje(this.tituloError, this.descripcionError);
+          console.log(err);
+          this.limpiarFormularioEntidadPaciente();
+        },
+        complete: () => {
           if (this.listaLocalEntidadPaciente.length > 0) {
             this.verEntidadPacientePendientes = true;
             this.entidadPacienteItem = this.listaLocalEntidadPaciente[0];
 
-            if (this.entidadPacienteItem.activo == 0) {
+            if (this.entidadPacienteItem.activo === 0) {
               this.emiteMensaje(
                 this.tituloAdvertencia,
                 this.entidadPacienteNoActivo
@@ -132,12 +141,7 @@ export class ListarPagoComponent implements OnInit {
             this.limpiarFormularioEntidadPaciente();
           }
         },
-        (err) => {
-          this.emiteMensaje(this.tituloError, this.descripcionError);
-          console.log(err);
-          this.limpiarFormularioEntidadPaciente();
-        }
-      );
+      });
   }
 
   pagarEntidadPaciente(entidadPaciente: EntidadPaciente) {
@@ -146,17 +150,18 @@ export class ListarPagoComponent implements OnInit {
     entidadPaciente.fechaPago = this.obtenerFechaActual(0);
     this.entidadPacienteService
       .actualizar(entidadPaciente, entidadPaciente.paciente.identificacion)
-      .subscribe(
-        () => {
+      .subscribe({
+        next: (v) => console.log(v),
+        error: (err) => {
+          this.emiteMensaje(this.tituloError, this.descripcionError);
+          console.log(err);
+        },
+        complete: () => {
           this.emiteMensaje(this.tituloExito, this.pagoExitoso);
           this.verValidarPagos = true;
           this.consultarEntidadPacientePorCedula(entidadPaciente.paciente);
         },
-        (err) => {
-          this.emiteMensaje(this.tituloError, this.descripcionError);
-          console.log(err);
-        }
-      );
+      });
   }
 
   limpiarFormularioEntidadPaciente() {
@@ -170,8 +175,8 @@ export class ListarPagoComponent implements OnInit {
   consultarPorCedula() {
     this.pagoService
       .consultarIdentificacion(this.pagoForm.get("identificacion").value)
-      .subscribe(
-        (respuesta) => {
+      .subscribe({
+        next: (respuesta) => {
           this.listaLocalPagos = respuesta;
           if (this.listaLocalPagos.length > 0) {
             this.verPagosPendientes = true;
@@ -180,12 +185,12 @@ export class ListarPagoComponent implements OnInit {
             this.limpiarFormulario();
           }
         },
-        (err) => {
+        error: (err) => {
           this.emiteMensaje(this.tituloError, this.descripcionError);
           console.log(err);
           this.limpiarFormulario();
-        }
-      );
+        },
+      });
   }
 
   pagar(pago: Pago) {
@@ -194,17 +199,17 @@ export class ListarPagoComponent implements OnInit {
     pago.valorPagado = this.pagoItem.valorAdeudado;
     pago.valorAdeudado = this.pagoItem.valorPagado;
 
-    this.pagoService.actualizar(pago).subscribe(
-      () => {
+    this.pagoService.actualizar(pago).subscribe({
+      error: (err) => {
+        this.emiteMensaje(this.tituloError, this.descripcionError);
+        console.log(err);
+      },
+      complete: () => {
         this.emiteMensaje(this.tituloExito, this.pagoExitoso);
         this.verValidarPagos = true;
         this.consultarPorCedula();
       },
-      (err) => {
-        this.emiteMensaje(this.tituloError, this.descripcionError);
-        console.log(err);
-      }
-    );
+    });
   }
 
   limpiarFormulario() {
@@ -219,7 +224,7 @@ export class ListarPagoComponent implements OnInit {
     const year = "" + date.getFullYear();
 
     // " 05:00:00"
-    if (dia != 1) {
+    if (dia !== 1) {
       const hours = "" + date.getHours();
       const minutes = "" + date.getMinutes();
       const seconds = "" + date.getSeconds();

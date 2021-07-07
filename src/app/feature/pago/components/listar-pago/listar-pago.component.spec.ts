@@ -8,6 +8,8 @@ import { PagoService } from '../../shared/service/pago.service';
 import { Pago } from '../../shared/model/pago';
 import { HttpService } from 'src/app/core/services/http.service';
 import { Notificacion } from '@shared/copmponents/notificacion/model/notificacion';
+import { PacienteService } from '@paciente/shared/service/paciente.service';
+import { PacienteConsultasService } from '@shared/copmponents/notificacion/service/paciente-consultas.service';
 
 describe('ListarPagoComponent', () => {
   let notificacion: Notificacion;
@@ -18,7 +20,7 @@ describe('ListarPagoComponent', () => {
   new Pago('3', '1111758458', 'FV-1984', '350000.00', '0.00', '2020-02-28', '')];
   const IDENTIFICACION_TEST = '1111758458';
   const IDENTIFICACION_TEST_INEXISTENTE = '32323232';
-  const FECHA_ACTUAL = '2021-06-28';
+  const FECHA_ACTUAL = '2021-06-30';
   const pagoTest = new Pago('3', '1111758458', 'FV-1984', '350000.00', '0.00', '2020-02-28', '');
   const TITULO_NOTIFICACION_EXITOSA = '¡Éxito!';
   const DESCRIPCION_NOTIFICACION_EXITOSA = '¡Pago realizado con Exito!';
@@ -31,7 +33,7 @@ describe('ListarPagoComponent', () => {
         HttpClientModule,
         RouterTestingModule
       ],
-      providers: [PagoService, HttpService]
+      providers: [PagoService, HttpService, PacienteService, PacienteConsultasService]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ListarPagoComponent);

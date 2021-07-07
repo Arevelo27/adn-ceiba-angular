@@ -2,7 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
 
 import { Paciente } from "@shared/copmponents/notificacion/model/paciente";
-import { PacienteService } from "@shared/copmponents/notificacion/service/paciente.service";
+import { PacienteService } from "@paciente/shared/service/paciente.service";
+import { PacienteConsultasService } from "@shared/copmponents/notificacion/service/paciente-consultas.service";
 import { NotificacionService } from "@shared/copmponents/notificacion/service/notificacion.service";
 import { Notificacion } from "@shared/copmponents/notificacion/model/notificacion";
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
@@ -25,6 +26,7 @@ export class ListarPacienteComponent implements OnInit {
 
   constructor(
     protected pacienteService: PacienteService,
+    protected pacienteConsultasService: PacienteConsultasService,
     private notificacionService: NotificacionService,
     private modalService: NgbModal
   ) {}
@@ -34,7 +36,7 @@ export class ListarPacienteComponent implements OnInit {
   }
 
   listarPacientes() {
-    this.listaPacientes = this.pacienteService.consultar();
+    this.listaPacientes = this.pacienteConsultasService.consultar();
   }
 
   abrirDialogo(paciente?: Paciente) {
@@ -68,17 +70,18 @@ export class ListarPacienteComponent implements OnInit {
   }
 
   eliminarPaciente(paciente: Paciente) {
-    this.pacienteService.eliminar(paciente).subscribe(
-      () => {
-        this.emiteMensaje(this.tituloExito, this.pagoExitoso);
-        this.listarPacientes();
-      },
-      (err) => {
+    this.pacienteService.eliminar(paciente).subscribe({
+      next: (v) => console.log(v),
+      error: (err) => {
         this.messageError = err.error.mensaje;
         this.emiteMensaje(this.tituloError, this.messageError);
         console.log(err);
-      }
-    );
+      },
+      complete: () => {
+        this.emiteMensaje(this.tituloExito, this.pagoExitoso);
+        this.listarPacientes();
+      },
+    });
   }
 
   emiteMensaje(titulo: string, descripcion: string) {

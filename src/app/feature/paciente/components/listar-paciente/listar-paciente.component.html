@@ -30,10 +30,10 @@
         <td>{{item.telefono }}</td>
         <td>{{item.email }}</td>
         <td>
-          <button id="btnEditarPaciente{{item.idPaciente}}"  type="button" class="btn btn-primary mb-3 btnEditarPaciente"  
+          <button id="btnLinkEditarPaciente{{item.idPaciente}}"  type="button" class="btn btn-primary mb-3 btnEditarPaciente"  
           (click)='abrirDialogo(item)' type="submit" color="primary">Editar</button>
 
-          <button id="btnEliminarPaciente{{item.idPaciente}}"  type="button" class="btn btn-primary mb-3 btnEliminarPaciente"  
+          <button id="btnLinkEliminarPaciente{{item.idPaciente}}"  type="button" class="btn btn-primary mb-3 btnEliminarPaciente"  
           (click)='eliminarPaciente(item)' type="submit">Eliminar</button>
         
         </td>

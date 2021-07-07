@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Paciente } from "@shared/copmponents/notificacion/model/paciente";
-import { PacienteService } from "@shared/copmponents/notificacion/service/paciente.service";
+import { PacienteService } from "@paciente/shared/service/paciente.service";
+import { PacienteConsultasService } from "@shared/copmponents/notificacion/service/paciente-consultas.service";
 import { Notificacion } from "@shared/copmponents/notificacion/model/notificacion";
 import { NotificacionService } from "@shared/copmponents/notificacion/service/notificacion.service";
 
@@ -33,6 +34,7 @@ export class CrearPacienteComponent implements OnInit {
 
   constructor(
     protected pacienteServices: PacienteService,
+    protected pacienteService: PacienteConsultasService,
     private notificacionService: NotificacionService
   ) {}
 
@@ -49,32 +51,20 @@ export class CrearPacienteComponent implements OnInit {
     paciente.telefono = this.pacienteForm.value[VALUE_TELEFONO];
     paciente.email = this.pacienteForm.value[VALUE_EMAIL];
 
-    this.pacienteServices.guardar(paciente).subscribe(
-      () => {
+    this.pacienteServices.guardar(paciente).subscribe({
+      next: (v) => console.log(v),
+      error: (err) => {
+        this.messageError = err.error.mensaje;
+        this.emiteMensaje(this.tituloError, this.messageError);
+        console.dir(err);
+      },
+      complete: () => {
         this.emiteMensaje(this.tituloExito, this.pacienteExitoso);
         setTimeout(() => {
           this.limpiarControles();
         }, 2000);
       },
-      (err) => {
-        this.messageError = err.error.mensaje;
-        this.emiteMensaje(this.tituloError, this.messageError);
-        console.log(err);
-      }
-    );
-  }
-
-  consultarPorCedula(identificacion: number) {
-    let isPresent: boolean = false;
-    this.pacienteServices
-      .consultarIdentificacion(identificacion)
-      .subscribe((respuesta) => {
-        if (respuesta.identificacion == identificacion) {
-          this.emiteMensaje(this.tituloAdvertencia, this.pacienteExiste);
-          isPresent = true;
-        }
-      });
-    return isPresent;
+    });
   }
 
   private construirFormularioPaciente() {

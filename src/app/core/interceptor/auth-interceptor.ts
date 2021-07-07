@@ -30,7 +30,7 @@ export class AuthInterceptor implements HttpInterceptor {
             this.router.navigate(["/home"]);
             break;
           default:
-            return throwError(() => new Error(`test ${error}`));
+            return throwError(() => error);
         }
       })
     );

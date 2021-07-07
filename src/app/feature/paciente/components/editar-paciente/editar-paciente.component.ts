@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { Paciente } from "@shared/copmponents/notificacion/model/paciente";
-import { PacienteService } from "@shared/copmponents/notificacion/service/paciente.service";
+import { PacienteService } from "@paciente/shared/service/paciente.service";
 import { Notificacion } from "@shared/copmponents/notificacion/model/notificacion";
 import { NotificacionService } from "@shared/copmponents/notificacion/service/notificacion.service";
 
@@ -56,21 +56,21 @@ export class EditarPacienteComponent implements OnInit {
 
     this.pacienteServices
       .actualizar(paciente, this.paciente.identificacion)
-      .subscribe(
-        () => {
+      .subscribe({
+        next: (v) => console.log(v),
+        error: (err) => {
+          this.messageError = err.error.mensaje;
+          this.emiteMensaje(this.tituloError, this.messageError);
+          console.log(err);
+        },
+        complete: () => {
           this.emiteMensaje(this.tituloExito, this.paacienteExitoso);
-
           setTimeout(() => {
             this.passEntry.emit(this.paciente);
             this.activeModal.close(this.paciente);
           }, 1500);
         },
-        (err) => {
-          this.messageError = err.error.mensaje;
-          this.emiteMensaje(this.tituloError, this.messageError);
-          console.log(err);
-        }
-      );
+      });
   }
 
   initForm() {

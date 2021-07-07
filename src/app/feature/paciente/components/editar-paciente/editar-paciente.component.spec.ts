@@ -5,16 +5,16 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { RouterTestingModule } from "@angular/router/testing";
 import { HttpService } from "@core/services/http.service";
 import { Notificacion } from "@shared/copmponents/notificacion/model/notificacion";
-import { PacienteService } from "@shared/copmponents/notificacion/service/paciente.service";
 
-
-import { EditarPacienteComponent } from './editar-paciente.component';
+import { EditarPacienteComponent } from "./editar-paciente.component";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { Paciente } from "@shared/copmponents/notificacion/model/paciente";
+import { PacienteService } from "@paciente/shared/service/paciente.service";
+import { PacienteConsultasService } from "@shared/copmponents/notificacion/service/paciente-consultas.service";
 
 const VALUE_IDENTIFICACION = "identificacion";
 
-describe('EditarPacienteComponent', () => {
+describe("EditarPacienteComponent", () => {
   let component: EditarPacienteComponent;
   let fixture: ComponentFixture<EditarPacienteComponent>;
   let pacienteService: PacienteService;
@@ -31,11 +31,15 @@ describe('EditarPacienteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditarPacienteComponent ],
+      declarations: [EditarPacienteComponent],
       imports: [CommonModule, HttpClientModule, RouterTestingModule],
-      providers: [HttpService, NgbActiveModal],
-    })
-    .compileComponents();
+      providers: [
+        HttpService,
+        NgbActiveModal,
+        PacienteService,
+        PacienteConsultasService,
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -49,7 +53,7 @@ describe('EditarPacienteComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('Debería ser valido el formulario si esta diligenciado', () => {
+  it("Debería ser valido el formulario si esta diligenciado", () => {
     const paciente = new Paciente();
     paciente.nombres = NOMBRES_TEST;
     paciente.apellidos = APELLIDOS_TEST;
@@ -58,37 +62,53 @@ describe('EditarPacienteComponent', () => {
     paciente.telefono = TELEFONO_TEST;
     paciente.email = EMAIL_TEST;
 
-    component.data = paciente
-    
-    component.pacienteEditForm.controls.nombres.setValue(component.data.nombres);
-    component.pacienteEditForm.controls.apellidos.setValue(component.data.apellidos);
-    component.pacienteEditForm.controls.identificacion.setValue(component.data.identificacion);
-    component.pacienteEditForm.controls.direccion.setValue(component.data.direccion);
-    component.pacienteEditForm.controls.telefono.setValue(component.data.telefono);
+    component.data = paciente;
+
+    component.pacienteEditForm.controls.nombres.setValue(
+      component.data.nombres
+    );
+    component.pacienteEditForm.controls.apellidos.setValue(
+      component.data.apellidos
+    );
+    component.pacienteEditForm.controls.identificacion.setValue(
+      component.data.identificacion
+    );
+    component.pacienteEditForm.controls.direccion.setValue(
+      component.data.direccion
+    );
+    component.pacienteEditForm.controls.telefono.setValue(
+      component.data.telefono
+    );
     component.pacienteEditForm.controls.correo.setValue(component.data.email);
-    
-    expect(component.pacienteEditForm.get(VALUE_IDENTIFICACION).value).toEqual(component.data.identificacion);
+
+    expect(component.pacienteEditForm.get(VALUE_IDENTIFICACION).value).toEqual(
+      component.data.identificacion
+    );
   });
 
   it("Editando paciente", () => {
     // Arrange
     component.pacienteEditForm.controls.nombres.setValue(NOMBRES_TEST);
     component.pacienteEditForm.controls.apellidos.setValue(APELLIDOS_TEST);
-    component.pacienteEditForm.controls.identificacion.setValue(IDENTIFICACION_TEST);
+    component.pacienteEditForm.controls.identificacion.setValue(
+      IDENTIFICACION_TEST
+    );
     component.pacienteEditForm.controls.direccion.setValue(DIRECCION_TEST);
     component.pacienteEditForm.controls.telefono.setValue(TELEFONO_TEST);
     component.pacienteEditForm.controls.correo.setValue(EMAIL_TEST);
     expect(component.pacienteEditForm.valid).toBeTruthy();
-    
-    spyOn(pacienteService, 'actualizar').and.returnValue(of(true));
-    notificacion = new Notificacion(TITULO_NOTIFICACION_EXITOSA, DESCRIPCION_NOTIFICACION_EXITOSA, true);
-    
+
+    spyOn(pacienteService, "actualizar").and.returnValue(of(true));
+    notificacion = new Notificacion(
+      TITULO_NOTIFICACION_EXITOSA,
+      DESCRIPCION_NOTIFICACION_EXITOSA,
+      true
+    );
+
     // Act
     component.crear();
-    //activeModal.close
 
-    // Aca validamos el resultado esperado al enviar la petición
-    // TODO adicionar expect
+    // expect
     expect(component.notificacion).toEqual(notificacion);
   });
 
